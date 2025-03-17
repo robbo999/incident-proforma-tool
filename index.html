@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Incident Proforma Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px #aaa;
+            max-width: 600px;
+            margin: auto;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            width: 100%;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        textarea#output {
+            margin-top: 10px;
+            height: 150px;
+            background: #eee;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <script>
+        function capitalizeFirstLetter(str) {
+            return str.replace(/\b\w/g, char => char.toUpperCase());
+        }
+
+        function generateProforma() {
+            let category = document.getElementById("category").value;
+            let startTime = document.getElementById("startTime").value;
+            let reportedBy = capitalizeFirstLetter(document.getElementById("reportedBy").value);
+            let location = capitalizeFirstLetter(document.getElementById("location").value);
+            let incidentInfo = capitalizeFirstLetter(document.getElementById("incidentInfo").value);
+            let trappedTrains = capitalizeFirstLetter(document.getElementById("trappedTrains").value);
+            let degradedPlan = capitalizeFirstLetter(document.getElementById("degradedPlan").value);
+            let trainStrategy = capitalizeFirstLetter(document.getElementById("trainStrategy").value);
+            let responseStaff = capitalizeFirstLetter(document.getElementById("responseStaff").value);
+
+            let proforma = `**East Coast Route - Incident Proforma**\n` +
+                `**${category}**\n\n` +
+                `- **Incident start time:** ${startTime}\n` +
+                `- **Reported by:** ${reportedBy}\n` +
+                `- **Location:** ${location}\n` +
+                `- **Incident Information:**\n  - ${incidentInfo.replace(/\n/g, '\n  - ')}\n` +
+                `- **Trapped Trains:** ${trappedTrains}\n` +
+                `- **Plan for degraded working:** ${degradedPlan}\n` +
+                `- **Train Service Strategy:** ${trainStrategy}\n` +
+                `- **Response Staff and ETAs:** ${responseStaff}\n`;
+
+            document.getElementById("output").value = proforma;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Incident Proforma Generator</h2>
+        <label>Category:</label>
+        <select id="category">
+            <option>D4</option>
+            <option>D3P</option>
+            <option>D2</option>
+            <option>D1</option>
+            <option>C</option>
+        </select>
+        <label>Incident Start Time:</label>
+        <input type="text" id="startTime">
+        <label>Reported By:</label>
+        <input type="text" id="reportedBy" spellcheck="true">
+        <label>Location:</label>
+        <input type="text" id="location" spellcheck="true">
+        <label>Incident Information:</label>
+        <textarea id="incidentInfo" rows="4" spellcheck="true"></textarea>
+        <label>Trapped Trains:</label>
+        <input type="text" id="trappedTrains" spellcheck="true">
+        <label>Plan for Degraded Working:</label>
+        <input type="text" id="degradedPlan" spellcheck="true">
+        <label>Train Service Strategy:</label>
+        <input type="text" id="trainStrategy" spellcheck="true">
+        <label>Response Staff and ETAs:</label>
+        <input type="text" id="responseStaff" spellcheck="true">
+        <button onclick="generateProforma()">Generate Proforma</button>
+        <h3>Formatted Proforma:</h3>
+        <textarea id="output" readonly></textarea>
+    </div>
+</body>
+</html>
